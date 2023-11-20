@@ -1,10 +1,13 @@
 import Majjaka_eProcure.wsgi
+
 SCRIPT_NAME = 'home/a98zy7m9c1gd/repositories/Majjaka-Deployment'
+
 
 class PassengerPathInfoFix(object):
     """
     Sets PATH_INFO from REQUEST_URI because Passenger doesn't provide it.
     """
+
     def __init__(self, app):
         self.app = app
 
@@ -17,6 +20,7 @@ class PassengerPathInfoFix(object):
         offset = request_uri.startswith(script_name) and len(environ['SCRIPT_NAME']) or 0
         environ['PATH_INFO'] = request_uri[offset:].split('?', 1)[0]
         return self.app(environ, start_response)
+
 
 application = Majjaka_eProcure.wsgi.application
 application = PassengerPathInfoFix(application)
