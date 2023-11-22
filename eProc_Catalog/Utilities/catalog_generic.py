@@ -100,7 +100,7 @@ class CatalogGenericMethods:
         return get_list
 
     @staticmethod
-    def get_supp_list_count(get_cat, assigned_free_texts_querry_set):
+    def get_supp_list_count(get_cat, assigned_free_texts_querry_set, req):
         """
 
         :param get_cat:
@@ -128,7 +128,7 @@ class CatalogGenericMethods:
             unique_supp_list = set(
                 list(assigned_free_texts_querry_set.values_list('supplier_id', flat=True).distinct()))
         supp_id_count = list_value_count(catalog_supp_list)
-        supp_id_desc_count = get_supp_desc_count(supp_id_count)
+        supp_id_desc_count = get_supp_desc_count(supp_id_count, req)
         total_supp = len(list(dict.fromkeys(unique_supp_list)))
         supp_image_info = django_query_instance.django_filter_query(ImagesUpload,
                                                                     {'client': global_variables.GLOBAL_CLIENT,
@@ -192,7 +192,7 @@ class CatalogGenericMethods:
         return unique_prod_cat_list, prod_cat_info, total_prod_count
 
     @staticmethod
-    def get_supplier_prod_cat_info(catalog_id, user_object_id):
+    def get_supplier_prod_cat_info(catalog_id, user_object_id, req):
         """
 
         :return:
@@ -223,7 +223,7 @@ class CatalogGenericMethods:
 
         """Get the suppliers and its count for catalog products data"""
         get_unique_suppliers, supp_info, total_supp = CatalogGenericMethods.get_supp_list_count(get_cat,
-                                                                                                assigned_free_texts_querry_set)
+                                                                                                assigned_free_texts_querry_set, req)
         """Get the product Categories and its count from the catalog products """
         get_unique_prods, prod_cat_info, total_prod_count = CatalogGenericMethods.get_prod_cat_list_count(get_cat,
                                                                                                           assigned_free_texts_querry_set)

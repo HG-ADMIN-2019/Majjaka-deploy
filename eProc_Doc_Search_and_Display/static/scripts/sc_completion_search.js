@@ -3,6 +3,12 @@
 
     $(document).ready(function() {
         var time_array = [];
+        if(sc_header_details){
+            $("#search_results").prop("hidden", false);
+        }
+        else{
+            $("#search_results").prop("hidden", true);
+        }
         if(form_method == ''){
             document.getElementById("description").value = '';
             document.getElementById("doc_number").value = '';

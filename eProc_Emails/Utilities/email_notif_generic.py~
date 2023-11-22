@@ -6,7 +6,7 @@ Usage:
    email_notify:function to send to email for user registration and returns the boolean value
    appr_notify:function to send email for approval registration and returns the boolean value
 Author:
-Shilpa Ilkal
+Soni Vydyula
 """
 import re
 import smtplib
