@@ -114,20 +114,26 @@ function delete_duplicate() {
         var row = $(this);
 
         //*************** reading data from the pop-up ***************
-        aapprover_username = row.find("TD").eq(2).find('input[type="text"]').val().toUpperCase();
+        approver_username = row.find("TD").eq(2).find('input[type="text"]').val();
         company_id = row.find("TD").eq(1).find("select option:selected").val();
         app_code_id = row.find("TD").eq(3).find("select option:selected").val();  
         app_guid = row.find("TD").eq(4).find('input[type="text"]').val().toUpperCase()
-        approval_limit_compare = approver_username +'-'+ company_id +'-'+ app_code_id 
-        if (approval_limit_code_check.includes(approval_limit_compare)) {
-            $(row).remove();
-        }
-        approval_limit_code_check.push(approval_limit_compare);
-        main_table_low_value = get_main_table_data_upload(); //Read data from main table
-        if (main_table_low_value.includes(approval_limit_compare)) {
-            $(row).remove();
-        }
-        main_table_low_value.push(approval_limit_compare);
+        approval_limit_compare = approver_username +'-'+ company_id +'-'+ app_code_id
+          if (checked_box){
+                del_ind = '1'
+          }
+          else{
+                del_ind = '0'
+                if (approval_limit_code_check.includes(approval_limit_compare)) {
+                    $(row).remove();
+                }
+                approval_limit_code_check.push(approval_limit_compare);
+                main_table_low_value = get_main_table_data_upload(); //Read data from main table
+                if (main_table_low_value.includes(approval_limit_compare)) {
+                    $(row).remove();
+                }
+                main_table_low_value.push(approval_limit_compare);
+          }
         })
         table_sort_filter_popup_pagination('id_popup_table')
         check_data()
@@ -211,7 +217,7 @@ function get_main_table_data_upload() {
         main_attribute.company_id = row.find("TD").eq(1).html();
         main_attribute.app_code_id = row.find("TD").eq(3).html();
         main_attribute.del_ind = row.find("TD").eq(5).find('input[type="checkbox"]').is(':checked');
-        var approval_limit_compare_maintable = main_attribute.approver_username +'-'+main_attribute.company_id +'-'+ main_attribute.app_code_id+ '-'+ main_attribute.del_ind
+        var approval_limit_compare_maintable = main_attribute.approver_username +'-'+main_attribute.company_id +'-'+ main_attribute.app_code_id
         main_table_low_value.push(approval_limit_compare_maintable);
     });
     table_sort_filter('display_basic_table');
